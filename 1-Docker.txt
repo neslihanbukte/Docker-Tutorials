@@ -1,0 +1,67 @@
+#Docker Image
+Docker Image, bir konteynerın çalıştırılması için gerekli olan her şeyi içeren salt okunur bir şablondur.
+Bu şablon, uygulamanın kodu, gerekli bağımlılıkları, konfigürasyonları ve işletim sistemi kütüphaneleri gibi bileşenleri barındırır.
+Docker image'ları, bir uygulamanın belirli bir sürümünü taşınabilir ve tekrarlanabilir bir şekilde paketlemenizi sağlar. 
+Image'lar Docker Hub gibi kayıt defterlerinden indirilebilir veya kullanıcılar tarafından oluşturulabilir.
+
+#Docker Container
+Bir Docker Image'in çalışan bir instance'ıdır.
+Konteynerler, bir uygulamanın bağımlılıklarını ve ortamını izole ederek, farklı ortamlar arasında tutarlılık sağlar.
+Konteynerler hafif ve taşınabilirdir, bu da onları geliştirme, test ve üretim ortamlarında yaygın olarak kullanılabilir hale getirir.
+Bu konteyner, yalnızca gerektiğinde çalıştırılan bir süreçtir ve bağımsız olarak çalışabilir.
+
+#Dockerfile
+Dockerfile, bir docker image oluşturmak için talimatlar içeren bir dosyadır. Bu dosya, uygulamanızın nasıl inşa edileceğini ve konfigüre edileceğini belirtir.
+Örnek bir Dockerfile dosyası :
+
+#Base image olarak Ubuntu kullan
+FROM ubuntu:latest
+#Gerekli paketleri yükle
+RUN apt-get update && apt-get install -y\
+python3 \
+python3-pip
+#Çalışma dizinini ayarla
+WORKDIR /app
+#Uygulama dosyalarını kopyala
+COPY ./app
+#Gereksinimleri yükle
+RUN pip3 install -r requirements.txt
+#Uygulamayı başlat
+CMD ["python3","app.py"]
+
+Bir Dockerfile'ı kullanarak bir image oluşturmak için şu komut kullanılır.
+docker build -t my-python-app .
+
+#Docker Compose
+Birden fazla konteyneri tanımlamak ve çalıştırmak için kullanılan bir araçtır. "docker-compose.yml" dosyası kullanılarak, uygulamanızın servislerini, ağlarını ve harcimlerini tanımlayabilirsiniz.
+
+
+
+#DOCKERFİLE
+# Dockerfile : Dockerfile, Docker imajları oluşturmak için kullanılan bir dosyadır ve Docker'ın temel yapı taşlarından biridir. Dockerfile'lar, bir uygulamanın çalıştırılabilir bir Docker imajına dönüştürülmesi için gereken talimatları içerir.
+
+# Örnek senaryo: Bir Node.js uygulaması geliştirdiniz ve bunu dağıtmak için bir Docker imajı oluşturmak istiyorsunuz. Dockerfile, bu süreci otomatikleştirir. 
+
+# FROM : Oluşturulacak Docker imajının temelini belirler. Çalıştıracağımız image gösterir.
+
+# LABEL : Bir Docker imajına meta veriler eklemek için kullanılır. Bu meta veriler, imaj hakkında bilgi sağlamak ve belirli etiketleri(labels) eklemek için kullanılır.  İmajın amacı, sürümü, yazarı gibi bilgileri içerebilir.
+
+# RUN : Docker imajının oluşturulması sırasında komutları çalıştırmak için kullanılır. İmage için gerekli yüklemeleri. Konteyner içinde bir komutu çalıştırır (örn. paket kurulumları). > RUN npm install > Nodejs bağımlılıklarını kurar.
+
+# CMD : Konteyner çalıştırıldığında varsayılan olarak çalıştırılacak komut veya işlem. > CMD ["node", "app.js"] >  Node.js ile app.js dosyasını çalıştırır.
+# ENTRYPOINT :  Çalıştırılacak komut yolunu gösterir. ?
+# COPY : Image kopyalama için, Dosyaları veya dizinleri build ortamından konteynere kopyalar. Açıklama: Dockerfile'ın bulunduğu dizindeki tüm dosyaları konteynerin çalışma dizinine kopyalar.
+# WORKDIR : Çalışma dizini, Konteyner içinde çalışma dizinini ayarlar.
+
+# ENV : Ortam değişkenlerini ayarlar. > ENV NODE_ENV=production > Uygulamanın çalışma ortamını production olarak ayarlar.
+
+# EXPOSE : Port numarası, konteynerin dış dünyaya açtığı portu belirtir. > EXPOSE 3000 > uygulamanın 3000 numaralı portta çalıştığını belirtir.
+# ARG : Build zamanında kullanılacak değişkenleri tanımlar. > ARG VERSION =1.0
+# VOLUME : Kalıcılık(Persist), kalıcı veri saklamak için bir hacim tanımlar.
+#ADD : Dosyaları kopyalar ve gerektiğinde sıkıştırılmış dosyaları açar. > ADD app.tar.gz /app
+
+#USER: Konteyner içinde çalıştırılacak kullanıcıyı ayarlar. > USER appuser
+#HEALTHCHECK: Bu container çalışıyor mu?
+# Konteynerin sağlığını kontrol etmek için komut tanımlar. >HEALTHCHECK --interval=30s CMD curl -f http://localhost:3000 || exit 1
+
+#ONBUILD : İmajın başka bir dockerfile tarafından miras alındığında tetiklenecek komutlar. > ONBUILD RUN apt-get update ????

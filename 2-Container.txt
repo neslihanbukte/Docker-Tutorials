@@ -1,0 +1,18 @@
+docker run hello-world
+--This is the older and simpler command in Docker CLI.
+
+docker container run hello-world
+--This is part of the newer, structured Docker CLI commands.
+
+
+docker --help 
+-- This command provides a list of all available Docker commands and a brief description of each. Use it as a quick reference for Docker CLI.
+
+docker search
+--The docker search command allows you to search for Docker images on Docker Hub directly from your terminal.
+docker search <image-name>
+docker search --help
+docker search nginx
+
+--Use docker help to explore Docker's full range of commands.
+--Use docker search <keyword> to find images related to a specific keyword on Docker Hub.
