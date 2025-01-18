@@ -1,0 +1,24 @@
+{
+  "name": "docker-tutorials",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node Tech.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neslihanbukte/Docker-Tutorials.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neslihanbukte/Docker-Tutorials/issues"
+  },
+  "homepage": "https://github.com/neslihanbukte/Docker-Tutorials#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
