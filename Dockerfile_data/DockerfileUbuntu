@@ -1,0 +1,33 @@
+FROM ubuntu:latest
+
+LABEL maintaner="neslihanbukte@outlook.com"
+
+ENV APP_NAME="Ubuntu, Dockerfile"
+ENV VERSION="v1.0.0"
+ENV PORT="2222"
+
+RUN echo "App Name: $APP_NAME"
+RUN echo "Port: $PORT"
+RUN echo "Version: $VERSION"
+
+VOLUME /tmp
+
+WORKDIR /usr/src/app
+
+# Python3 ve pip yükle
+RUN apt-get update && apt-get install -y python3 python3-pip
+
+# requirements.txt dosyasını kopyala
+COPY requirements.txt /usr/src/app/
+
+# Flask'ı yükle
+RUN pip install -r requirements.txt
+
+# app.py dosyasını kopyala
+COPY app.py /usr/src/app/
+
+EXPOSE 2222
+CMD ["python3", "app.py"]
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:9999/ || exit 1
